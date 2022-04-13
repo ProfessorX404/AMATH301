@@ -1,0 +1,14 @@
+{
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true,
+    "python.formatting.autopep8Path": ".env\\Scripts\\autopep8.exe",
+    "python.formatting.autopep8Args": [
+        "--max-line-length",
+        "79",
+        "--experimental"
+    ],
+    "python.defaultInterpreterPath": ".\\.env\\python.exe",
+    "python.terminal.activateEnvironment": true,
+    "python.terminal.environmentPath": ".\\.env",
+    "python.linting.flake8Path": ".\\.env\\Scripts\\flake8.exe",
+}
