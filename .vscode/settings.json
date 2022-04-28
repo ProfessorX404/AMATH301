@@ -11,4 +11,6 @@
     "python.terminal.activateEnvironment": true,
     "python.terminal.environmentPath": ".\\.env",
     "python.linting.flake8Path": ".\\.env\\Scripts\\flake8.exe",
+    "python.condaPath": ".\\.env",
+    "python.linting.flake8CategorySeverity.F": "Warning"
 }
