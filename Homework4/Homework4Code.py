@@ -2,23 +2,27 @@ import cv2
 import numpy as np
 
 
-# must run from inside Homework4 directory
+def getRankApprox(A, r, return_s=False):
+    U, S, V = np.linalg.svd(A, full_matrices=False)  # pdq
+    if(return_s):
+        return np.matrix(U[:, :r - 1]) * np.diag(S[:r - 1]) * np.matrix(V[:r - 1, :]), S
+    return np.matrix(U[:, :r - 1]) * np.diag(S[:r - 1]) * np.matrix(V[:r - 1, :])
+
 
 def problem1():
     A = np.loadtxt('particle_position.csv', delimiter=',')
     mean = np.mean(A, axis=1)
     A = A - mean[:, None]
-    U, S, V = np.linalg.svd(A, full_matrices=False)
-    A_rank1 = U[:, :0] @ np.diag(S[:0]) @ V[:0, :]
-    A_rank2 = U[:, :1] @ np.diag(S[:1]) @ V[:1, :]
+    A_rank1, S = getRankApprox(A, 1, True)
+    A_rank2 = getRankApprox(A, 2)
     error1 = np.linalg.norm(A-A_rank1)
     error2 = np.linalg.norm(A-A_rank2)
     return S, error1, error2
 
 
 def problem2(numvalues=15, energy_val=.92):
-    img = cv2.imread('olive.jpg', 0)
-    U, S, V = np.linalg.svd(img, full_matrices=False)
+    A = cv2.imread('olive.jpg', 0)
+    approx, S = getRankApprox(A, 1, True)
     largest_values = S[:numvalues]  # part a
     rank1_energy = S[0] / sum(S)  # part b
     rank15_energy = sum(S[:numvalues]) / sum(S)  # part c
@@ -35,8 +39,7 @@ def problem2(numvalues=15, energy_val=.92):
 def problem3():
     A = np.loadtxt('Problem3_Image.csv', delimiter=',')
     A_noisy = np.loadtxt('Problem3_Image_Noisy.csv', delimiter=',')
-    U, S, V = np.linalg.svd(A, full_matrices=False)
-    A_rank2 = U[:, :1] @ np.diag(S[:1]) @ V[:1, :]
+    A_rank2, S = getRankApprox(A_noisy, 2, True)
     rank2_energy = sum(S[:1]) / sum(S)  # part a
     error2_noisy = np.linalg.norm(A_noisy-A_rank2)  # part b) i.
     error2 = np.linalg.norm(A-A_rank2)  # part b) ii.
