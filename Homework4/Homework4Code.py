@@ -5,8 +5,8 @@ import numpy as np
 def getRankApprox(A, r, return_s=False):
     U, S, V = np.linalg.svd(A, full_matrices=False)  # pdq
     if(return_s):
-        return np.matrix(U[:, :r - 1]) * np.diag(S[:r - 1]) * np.matrix(V[:r - 1, :]), S
-    return np.matrix(U[:, :r - 1]) * np.diag(S[:r - 1]) * np.matrix(V[:r - 1, :])
+        return np.matrix(U[:, :r]) * np.diag(S[:r]) * np.matrix(V[:r, :]), S
+    return np.matrix(U[:, :r]) * np.diag(S[:r]) * np.matrix(V[:r, :])
 
 
 def problem1():
@@ -22,7 +22,7 @@ def problem1():
 
 def problem2(numvalues=15, energy_val=.92):
     A = cv2.imread('olive.jpg', 0)
-    approx, S = getRankApprox(A, 1, True)
+    S = getRankApprox(A, 1, True)[1]
     largest_values = S[:numvalues]  # part a
     rank1_energy = S[0] / sum(S)  # part b
     rank15_energy = sum(S[:numvalues]) / sum(S)  # part c
@@ -40,7 +40,7 @@ def problem3():
     A = np.loadtxt('Problem3_Image.csv', delimiter=',')
     A_noisy = np.loadtxt('Problem3_Image_Noisy.csv', delimiter=',')
     A_rank2, S = getRankApprox(A_noisy, 2, True)
-    rank2_energy = sum(S[:1]) / sum(S)  # part a
+    rank2_energy = sum(S[:2]) / sum(S)  # part a
     error2_noisy = np.linalg.norm(A_noisy-A_rank2)  # part b) i.
     error2 = np.linalg.norm(A-A_rank2)  # part b) ii.
     return rank2_energy, error2_noisy, error2
