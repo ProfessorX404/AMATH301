@@ -61,11 +61,11 @@ def problem2ab():
 
 
 def problem2cd():
-    iter = 0
+    iter = -1
     p = np.array([[-3], [-2]])  # Choose an initial guess
     # print('p: ', p)
     grad = fgrad(p)
-    while((iter <= 5000) & (np.linalg.norm(grad, np.inf) > 1e-8)):
+    while((iter < 5000) & (np.linalg.norm(grad, np.inf) > 1e-8)):
         grad = fgrad(p)  # Find which direction to go
         # print("iter:", str(iter))
         # print("norm:", str(np.linalg.norm(grad, np.inf)))
