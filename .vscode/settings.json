@@ -5,7 +5,8 @@
     "python.formatting.autopep8Args": [
         "--max-line-length",
         "79",
-        "--experimental"
+        "--experimental",
+        "--ignore=E731"
     ],
     "python.defaultInterpreterPath": ".\\.env\\python.exe",
     "python.terminal.activateEnvironment": true,
