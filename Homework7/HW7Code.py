@@ -58,7 +58,7 @@ def sec_deriv(f, x, h):
 
 
 def read_plut(file_name=None):
-    if file_name == None:
+    if file_name is None:
         file_name = "./Plutonium.csv"
     arr = np.loadtxt(file_name, delimiter=",")
     plt.show()
@@ -89,7 +89,8 @@ def problem1():
 
 
 def kitten_weight(x, mu=3.5, sigma=.73):
-    return (1 / np.sqrt(2 * np.pi * (sigma**2))) * np.exp(-((x - mu)**2) / (2 * sigma**2))
+    return (1 / np.sqrt(2 * np.pi * (sigma**2))) *\
+        np.exp(-((x - mu)**2) / (2 * sigma**2))
 
 
 def problem2():
@@ -133,7 +134,8 @@ def problem2():
         integral = 0
         for j in np.linspace(4, 5 - h, int((1 - h) / h)):
             integral += (h / 6) * (kitten_weight(j) +
-                                   (4 * kitten_weight((j + (j + h)) / 2)) + kitten_weight(j + h))
+                                   (4 * kitten_weight((j + (j + h)) / 2)) +
+                                   kitten_weight(j + h))
         simpson[i] = integral
 
     A7 = left
