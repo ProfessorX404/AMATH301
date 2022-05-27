@@ -96,47 +96,45 @@ def kitten_weight(x, mu=3.5, sigma=.73):
 def problem2():
     A6 = si.quad(kitten_weight, a=4, b=5)[0]
 
+    h_list = [2**(-(i + 1)) for i in range(16)]
+    step_count = [int((1 - h) / h) for h in h_list]
     left = np.ndarray((16, 1))
-    for i in range(len(left)):
-        h = 2**(-(i + 1))
-        integral = 0
-        for j in np.linspace(4 + h, 5, int((1 - h) / h)):
-            integral += kitten_weight(j) * h
-        left[i] = integral
-
     right = np.ndarray((16, 1))
-    for i in range(len(left)):
-        h = 2**(-(i + 1))
-        integral = 0
-        for j in np.linspace(4, 5 - h, int((1 - h) / h)):
-            integral += kitten_weight(j) * h
-        right[i] = integral
-
     midpoint = np.ndarray((16, 1))
-    for i in range(len(left)):
-        h = 2**(-(i + 1))
-        integral = 0
-        for j in np.linspace(4 + (h / 2), 5 - (h / 2), int((1 - h) / h)):
-            integral += kitten_weight(j) * h
-        midpoint[i] = integral
-
     trapezoid = np.ndarray((16, 1))
-    for i in range(len(left)):
-        h = 2**(-(i + 1))
-        integral = 0
-        for j in np.linspace(4, 5 - h, int((1 - h) / h)):
-            integral += h * ((kitten_weight(j) + kitten_weight(j + h)) / 2)
-        trapezoid[i] = integral
-
     simpson = np.ndarray((16, 1))
+
     for i in range(len(left)):
-        h = 2**(-(i + 1))
-        integral = 0
-        for j in np.linspace(4, 5 - h, int((1 - h) / h)):
-            integral += (h / 6) * (kitten_weight(j) +
-                                   (4 * kitten_weight((j + (j + h)) / 2)) +
-                                   kitten_weight(j + h))
-        simpson[i] = integral
+        h = h_list[i]
+        sc = step_count[i]
+        for j in np.linspace(4 + h, 5, sc):
+            left[i] += kitten_weight(j) * h
+
+    for i in range(len(right)):
+        h = h_list[i]
+        sc = step_count[i]
+        for j in np.linspace(4, 5 - h, sc):
+            right[i] += kitten_weight(j) * h
+
+    for i in range(len(midpoint)):
+        h = h_list[i]
+        sc = step_count[i]
+        for j in np.linspace(4 + (h / 2), 5 - (h / 2), sc):
+            midpoint[i] += kitten_weight(j) * h
+
+    for i in range(len(trapezoid)):
+        h = h_list[i]
+        sc = step_count[i]
+        for j in np.linspace(4, 5 - h, sc):
+            trapezoid[i] += h * ((kitten_weight(j) + kitten_weight(j + h)) / 2)
+
+    for i in range(len(simpson)):
+        h = h_list[i]
+        sc = step_count[i]
+        for j in np.linspace(4, 5 - h, sc):
+            simpson[i] += (h / 6) * (kitten_weight(j) +
+                                     (4 * kitten_weight((j + (j + h)) / 2)) +
+                                     kitten_weight(j + h))
 
     A7 = left
     A8 = right
