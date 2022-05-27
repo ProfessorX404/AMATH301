@@ -52,11 +52,11 @@ def problem1():
                                      (4 * kitten_weight((j + (j + h)) / 2)) +
                                      kitten_weight(j + h))
 
-    left_error = np.abs(exact - left)
-    right_error = np.abs(exact - right)
-    mid_error = np.abs(exact - midpoint)
-    trap_error = np.abs(exact - trapezoid)
-    simpson_error = np.abs(exact - simpson)
+    left_error = [np.abs(exact - i) for i in left]
+    right_error = [np.abs(exact - i) for i in right]
+    mid_error = [np.abs(exact - i) for i in midpoint]
+    trap_error = [np.abs(exact - i) for i in trapezoid]
+    simpson_error = [np.abs(exact - i) for i in simpson]
 
     c1 = .25
     c2 = 2.5
