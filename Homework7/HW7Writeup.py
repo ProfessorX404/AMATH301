@@ -73,7 +73,7 @@ def problem1():
              [1e-16 for i in range(16)],
              label="machine precision", marker='p', linewidth=2)
     plt.legend()
-    plt.xlabel("step count")
+    plt.xlabel("step value")
     plt.ylabel("Error")
     plt.xscale('log')
     plt.yscale('log')
